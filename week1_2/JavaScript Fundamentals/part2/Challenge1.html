@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="mb-3">
+        <label for="" class="form-label">Dolphins score</label>
+        <input
+            type="text"
+            class="form-control"
+            name=""
+            id="DolphinsScore"
+            aria-describedby="helpId"
+            placeholder="Values separated by comma"
+            value="85, 54, 41"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Koalas score</label>
+        <input
+            type="text"
+            class="form-control"
+            name=""
+            id="KoalasScore"
+            aria-describedby="helpId"
+            placeholder="Values separated by comma"
+            value="23, 34, 27"
+        />
+    </div>
+    <button type="button" id="btnCalculate">Calculate</button>
+    <div class="msg"></div>
+
+    <script>
+        var btnCalculate = document.getElementById("btnCalculate");
+        btnCalculate.onclick = () => {
+            var dolphinsScoreInput = document.getElementById("DolphinsScore").value;
+            var koalasScoreInput = document.getElementById("KoalasScore").value;
+    
+            var dolphinsScores = dolphinsScoreInput.split(",").map(item => parseInt(item.trim()));
+            var koalasScores = koalasScoreInput.split(",").map(item => parseInt(item.trim()));
+    
+            var avgDolphins = calcAverage(...dolphinsScores);
+            var avgKoalas = calcAverage(...koalasScores);
+    
+            var result = checkWinner(avgDolphins, avgKoalas);
+            document.querySelector(".msg").innerText = result;
+        }
+        function calcAverage(...data) { // spread/rest js
+            var len = data.length;
+            var result = data.reduce((total, item) => { return total + item}, 0);
+            console.log("total: " + result);
+            
+            return result / len;
+        }
+        function checkWinner(avgDolphins, avgKoalas) {
+            if (avgDolphins >= 2 * avgKoalas) {
+                return `Dolphins win (${avgDolphins} vs. ${avgKoalas})`;
+            } else if (avgKoalas >= 2 * avgDolphins) {
+                return `Koalas win (${avgKoalas} vs. ${avgDolphins})`;
+            } else {
+                return 'No team wins...';
+            }
+        }
+    </script>
+</body>
+</html>

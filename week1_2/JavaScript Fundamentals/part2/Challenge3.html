@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="mb-3">
+        <label for="" class="form-label">Mass Mark</label>
+        <input
+            type="text"
+            class="form-control"
+            name="massMark"
+            id="massMark"
+            aria-describedby="helpId"
+            placeholder=""
+            value="78"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Height Mark</label>
+        <input
+            type="text"
+            class="form-control"
+            name="heightMark"
+            id="heightMark"
+            aria-describedby="helpId"
+            placeholder=""
+            value="1.69"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Mass Mark</label>
+        <input
+            type="text"
+            class="form-control"
+            name="massJohn"
+            id="massJohn"
+            aria-describedby="helpId"
+            placeholder=""
+            value="92"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Height John</label>
+        <input
+            type="text"
+            class="form-control"
+            name="heightJohn"
+            id="heightJohn"
+            aria-describedby="helpId"
+            placeholder=""
+            value="1.95"
+        />
+    </div>
+    <button
+    id="btnCalBMI"
+        type="button"
+        class="btn btn-primary"
+    >
+        Calculate BMI
+    </button>
+    
+
+    <div id="msg"></div>
+
+    <script>
+        // Coding Challenge #1
+        
+        var btnCalBMI = document.getElementById("btnCalBMI");
+        btnCalBMI.onclick = function() {
+            var massMark = document.getElementById("massMark").value;
+            var heightMark = document.getElementById("heightMark").value;
+            var massJohn = document.getElementById("massJohn").value;
+            var heightJohn = document.getElementById("heightJohn").value;
+
+            var MarkObj = {
+                fullName: "Mark Miller",
+                mass: massMark,
+                height: heightMark,
+                calcBMI: function() {
+                    this.BMI = this.mass / (this.height ** 2);
+                    return this.BMI;
+                }
+            }
+            var JohnObj = {
+                fullName: "John Smith",
+                mass: massJohn,
+                height: heightJohn,
+                calcBMI: function() {
+                    this.BMI = this.mass / (this.height ** 2);
+                    return this.BMI;
+                }
+            }
+            var markHigherBMI = MarkObj.calcBMI() > JohnObj.calcBMI();
+            // Coding Challenge #2
+            msg = "";
+
+            if (markHigherBMI) {
+                console.log("Mark's BMI is higher than John's!");
+                msg = `Mark's BMI (${MarkObj.calcBMI()}) is higher than John's (${JohnObj.calcBMI()})!`
+            } else {
+                console.log("John's BMI is higher than Mark's!");
+                msg = `John's BMI (${JohnObj.calcBMI()}) is higher than Mark's (${MarkObj.calcBMI()})!`
+            }
+            console.log(msg);
+            var msgElm = document.getElementById("msg")
+            msgElm.innerText = msg;
+        }
+    </script>
+</body>
+</html>

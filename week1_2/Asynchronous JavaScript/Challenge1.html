@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="mb-3">
+        <label for="Latitude" class="form-label">Latitude</label>
+        <input
+            type="text"
+            class="form-control"
+            name="Latitude"
+            id="Latitude"
+            aria-describedby="helpId"
+            placeholder=""
+            value="52.508"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="Longitude" class="form-label">Longitude</label>
+        <input
+            type="text"
+            class="form-control"
+            name="Longitude"
+            id="Longitude"
+            aria-describedby="helpId"
+            placeholder=""
+            value="13.381"
+        />
+    </div>
+    <button id="btn">Where am I?</button>
+    <div id="location"></div>
+    
+    <script>
+        function whereAmI(lat, lbg) {
+            fetch(`https://geocode.xyz/${lat},${lbg}?geoit=JSON`)
+            .then(response => {
+                // API trả về đối tượng response, cần gọi phương thức json() để lấy dữ liệu thực tế
+                return response.json(); // --> trả về một Promise
+            })
+            .then(data => { // .then() sẽ chờ .then() trước đó hoàn thành và nhận kết quả trả về
+                console.log(data);
+                var location  = `You are in ${data.city}, ${data.country}`;
+                console.log(location);
+                document.getElementById('location').innerHTML = location;
+            })
+            .catch(err => {
+                console.error(`Occurred error: ${err}`);
+            });
+        }
+        // whereAmI(52.508, 13.381);
+        
+        document.getElementById('btn').addEventListener('click', function() {
+            const lat = document.getElementById('Latitude').value;
+            const lbg = document.getElementById('Longitude').value;
+            whereAmI(lat, lbg);
+        });
+    </script>
+</body>
+</html>
