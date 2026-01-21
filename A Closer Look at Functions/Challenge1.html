@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const btnAnswer = document.createElement("button");
+        btnAnswer.textContent = "Answer poll"
+        document.body.appendChild(btnAnswer);
+
+        const poll = {
+            question: "What is your favourite programming language?",
+            options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
+            // This generates [0, 0, 0, 0]. More in the next section!
+            answers: new Array(4).fill(0),
+            registerNewAnswer: function () {
+                const containerElm = document.createElement("div");
+                const titleElm = document.createElement("h1");
+                const inputNum = document.createElement("input");
+                const opts = document.createElement("div");
+                // const btnAnswer = document.createElement("button");
+                
+                titleElm.textContent = this.question;
+                inputNum.placeholder = "(Write option number)";
+                inputNum.id = "inputNum"
+                // btnAnswer.textContent = "Answer poll"
+
+
+                this.options.forEach((item, index) => {
+                    // const [value, name] = item.split(": ");
+                    // optElm.value = value;
+                    const optElm = document.createElement("p");
+                    optElm.innerText = item;
+                    opts.appendChild(optElm);
+                })
+
+                
+                containerElm.appendChild(titleElm);
+                containerElm.appendChild(opts);
+                containerElm.appendChild(inputNum);
+                // containerElm.appendChild(btnAnswer);
+                
+
+                document.body.appendChild(containerElm);
+
+                const self = this;
+
+                inputNum.onblur = function() {
+                    const value = parseInt(inputNum.value);
+
+                    if (typeof(value) == "number" && value >=0 && value <=3) {
+                        self.answers[value] += 1;
+                        // console.log(self.answers);
+                        
+                    } else {
+                        console.log("Option selected: " + value + " invalid.")
+                    }
+                }
+                
+            },
+            displayResults: function(type = []) {
+                if(typeof(type) == "object") {
+                    console.log(type);
+                } else {
+                    console.log("Poll results are " + type);
+                }
+            }
+        };
+
+        btnAnswer.onclick = function() {
+            poll.registerNewAnswer();
+            // poll.displayResults(poll.answers);
+            
+        }
+    </script>
+</body>
+</html>
