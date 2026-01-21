@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function checkDogs(arr1, arr2) {
+            const dogsJuliaCorrected = arr1.slice(); // shallow copy
+            dogsJuliaCorrected.splice(0, 2);
+            dogsJuliaCorrected.splice(-2, 2);
+
+            console.log("Original arr1:", arr1);
+            console.log("Adjusted arr1:", dogsJuliaCorrected);
+
+            // Gộp mảng
+            const allDogs = dogsJuliaCorrected.concat(arr2);
+
+            console.log("All dogs:", allDogs);
+
+            allDogs.forEach(function(dog, i) {
+                if (dog >= 3) {
+                    console.log(`Dog number ${i + 1} is an adult, and is ${dog} years old`);
+                } else {
+                    console.log(`Dog number ${i + 1} is still a puppy`);
+                }
+            });
+        }
+
+        checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+        //checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+    </script>
+</body>
+</html>
