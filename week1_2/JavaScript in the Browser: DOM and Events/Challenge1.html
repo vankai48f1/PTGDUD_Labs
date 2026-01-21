@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="mb-3">
+        <label for="Message" class="form-label">Message</label>
+        <input
+            type="text"
+            class="form-control"
+            name="Message"
+            id="Message"
+            aria-describedby="helpId"
+            placeholder=""
+            value="Message sample"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="Number" class="form-label">Number</label>
+        <input
+            type="text"
+            class="form-control"
+            name="Number"
+            id="Number"
+            aria-describedby="helpId"
+            placeholder=""
+            value="23"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="Score" class="form-label">Score</label>
+        <input
+            type="text"
+            class="form-control"
+            name="Score"
+            id="Score"
+            aria-describedby="helpId"
+            placeholder=""
+            value="10"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="Guess" class="form-label">Guess</label>
+        <input
+            type="text"
+            class="form-control"
+            name="Guess"
+            id="Guess"
+            aria-describedby="helpId"
+            placeholder=""
+            value="15"
+        />
+    </div>
+    
+    <div class="again">Again</div>
+
+    <script>
+        const $ = document.querySelector.bind(document);
+        const $Id = document.getElementById.bind(document);
+
+        const againElmt = $('.again');
+
+        let message = $Id('Message').value;
+        let number = $Id('Number').value;
+        let score = $Id('Score').value;
+        let guess = $Id('Guess').value;
+
+        againElmt.onclick = function() {
+            message = "";
+            number = "";
+            score = "";
+            guess = "";
+            $Id('Message').value = message;
+            $Id('Number').value = number;
+            $Id('Score').value = score;
+            $Id('Guess').value = guess;
+            document.body.style.backgroundColor = '#222';
+            $Id('Number').style.width = '15rem';
+        };
+    </script>
+</body>
+</html>

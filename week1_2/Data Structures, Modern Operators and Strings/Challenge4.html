@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div class="mb-3">
+        <label for="TestData" class="form-label">Test Data</label>
+        <textarea class="form-control" name="TestData" id="TestData" rows="10"></textarea>
+    </div>
+     -->
+    <script>
+        
+        const testArea = document.createElement("textarea");
+        testArea.id = "TestData";
+        testArea.rows = 10;
+        document.body.appendChild(testArea);
+
+        const btn = document.createElement("button");
+        btn.innerText = "Convert to camelCase";
+        document.body.appendChild(btn);
+
+        btn.addEventListener("click", function() {
+            const content = testArea.value;
+            console.log("Raw content: " + JSON.stringify(content));
+            const lines = content.split("\n");
+            let convertedLines = [];
+            for (let line of lines) {
+                let newLine = line.split("_").map((word, index) => {
+                    word = word.trim();
+                    if (index === 0) {
+                        return word.toLowerCase();
+                    } else {
+                        return word[0].toUpperCase() + word.slice(1).toLowerCase();
+                    }
+                })
+                convertedLines.push(newLine.join(""));
+            }
+            console.log("Converted lines: " + JSON.stringify(convertedLines));
+            testArea.value = convertedLines.join("\n");
+        });
+    </script>
+</body>
+</html>

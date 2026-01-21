@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const game={
+            team1: "Bayern Munich",
+            team2: "Borrussia Dortmund",
+            players: [
+                [
+                    "Neuer",
+                    "Pavard",
+                    "Martinez",
+                    "Alaba",
+                    "Davies",
+                    "Kimmich",
+                    "Goretzka",
+                    "Coman",
+                    "Muller",
+                    "Gnarby",
+                    "Lewandowski",
+                ],
+                [
+                    "Burki",
+                    "Schulz",
+                    "Hummels",
+                    "Akanji",
+                    "Hakimi",
+                    "Weigl",
+                    "Witsel",
+                    "Hazard",
+                    "Brandt",
+                    "Sancho",
+                    "Gotze",
+                ],
+            ],
+            score: "4:0",
+            scored: ["Lewandowski","Gnarby","Lewandowski","Hummels"],
+            date: "Nov 9th, 2037",
+            odds: {
+                team1: 1.33,
+                x: 3.25,
+                team2: 6.5,
+            },
+            x: "draw"
+        }
+
+        // 1st part
+        for(const index in game.scored){
+            const player = game.scored[index];
+            console.log(`Goal ${parseInt(index) + 1}: ${player}`);
+        }
+
+        
+        
+        /*const scorers = {};
+        for (const player of game.scored) {
+            scorers[player] ? scorers[player]++ : scorers[player] = 1;
+        }
+        console.log(scorers); */
+
+        // 2nd part
+        function calcAverage(...data) { // spread/rest js
+            var len = data.length;
+            var result = data.reduce((total, item) => { return total + item}, 0);
+            // console.log("total: " + result);
+            
+            return result / len;
+        }
+
+        const avgOdds = calcAverage(...Object.values(game.odds));
+        console.log(`Average odd: ${avgOdds}`);
+
+        // 3rd part
+        for (const key in game.odds) {
+            // console.log(key);
+            const odd = game.odds[key];
+            const teamStr = key === "x" ? "draw" : `victory ${game[key]}`;
+            console.log(`Odd of ${teamStr}: ${odd}`);
+        }
+    </script>
+</body>
+</html>

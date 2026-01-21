@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" id="billValue" placeholder="Enter bill value" value="22, 295, 176, 440, 37, 105, 10, 1100, 86, 52">
+    <button id="btnCaltip">Calculate tip</button>
+    <div id="resultMsg"></div>
+
+    <script>
+        function calcTip(billValue) {
+            if (billValue >= 50 && billValue <= 300) {
+                return billValue * 0.15;
+            } else {
+                return billValue * 0.20;
+            }
+        }
+        function calcAverage(arr) {
+            let sum = 0;
+            for (let i = 0; i < arr.length; i++) {
+                sum += arr[i];
+            }
+            return sum / arr.length;
+        }
+        var btnCaltip = document.getElementById("btnCaltip");
+
+        btnCaltip.onclick = () => {
+            var billValue = document.getElementById("billValue").value;
+            var bills = billValue.split(",").map(item => parseInt(item.trim()));
+            //var tips = bills.map(bill => "The bill was " + bill + ", the tip was " + calcTip(bill) + ", and the total value " + (bill + calcTip(bill)));
+            //console.log(tips);
+            var tips = bills.map(bill => calcTip(bill));
+            var totals = bills.map((bill, index) => bill + tips[index]);
+            console.log("bills: " + bills + ", tips: " + tips);
+            console.log("totals: " + totals);
+            console.log("average tip: " + calcAverage(tips));
+        }
+    </script>
+</body>
+</html>

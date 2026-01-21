@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Dolphins score</label>
+        <input
+            type="text"
+            class="form-control"
+            name=""
+            id="DolphinsScore"
+            aria-describedby="helpId"
+            placeholder="Values separated by comma"
+            value="97, 112, 101"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Koalas score</label>
+        <input
+            type="text"
+            class="form-control"
+            name=""
+            id="KoalasScore"
+            aria-describedby="helpId"
+            placeholder="Values separated by comma"
+            value="109, 95, 106"
+        />
+    </div>
+    <button type="button" id="btnCalculate">Calculate</button>
+    <div class="msg"></div>
+    
+    <script>
+        function calcAvgScore(...data) { // spread/rest js
+            var len = data.length;
+            var result = data.reduce((total, item) => { return total + item}, 0);
+            // for(var i = 0; i<len; i++) {
+            //     result += data[i];
+            // }
+            console.log("total: " + result);
+            
+            return result / len;
+        }
+        var btnCalculate = document.getElementById("btnCalculate");
+        btnCalculate.addEventListener("click", function() {
+            var DolphinsScore = document.getElementById("DolphinsScore").value;
+            var KoalasScore = document.getElementById("KoalasScore").value;
+            var scoreDolphins = calcAvgScore(...DolphinsScore.split(",").map(Number));
+            var scoreKoalas = calcAvgScore(...KoalasScore.split(",").map(Number));
+            var isDolphinsWinner = scoreDolphins > scoreKoalas;
+            var isDraw = scoreDolphins === scoreKoalas;
+            
+            console.log(scoreDolphins);
+            console.log(scoreKoalas);
+    
+            // if (isDolphinsWinner) {
+            //     console.log("Dolphins are winner");
+            // } else if (isDraw) {
+            //     console.log("Draw");
+            // }else {
+            //     console.log("Koalas are winner");
+            // }
+            var msgElement = document.querySelector(".msg");
+            var msg = "";
+            if (isDolphinsWinner && scoreDolphins >= 100) {
+                console.log("Dolphins are winner");
+                msg = "Dolphins are winner";
+            } else if (!isDolphinsWinner && scoreKoalas >= 100) {
+                console.log("Koalas are winner");
+                msg = "Koalas are winner";
+            } else {
+                console.log("No one winner");
+                msg = "No one winner";
+            }
+            msgElement.innerHTML = msg;
+
+        })
+    </script>
+</body>
+</html>

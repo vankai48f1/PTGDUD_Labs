@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="billValue" placeholder="Enter bill value">
+    <button id="btnCaltip">Calculate tip</button>
+    <div id="resultMsg"></div>
+
+    <script>
+        function calcTip(billValue) {
+
+        }
+        var btnCaltip=document.getElementById("btnCaltip");
+
+        btnCaltip.onclick=() => {
+            var billValue=document.getElementById("billValue").value;
+            var billValueInt=parseInt(billValue);
+            var tip=billValueInt>=50&&billValueInt<=300? 0.15:0.2;
+            var totalValue=billValueInt+billValueInt*tip;
+            var result="The bill was "+billValueInt+", the tip was "+(billValueInt*tip)+", and the total value "+totalValue;
+            document.getElementById("resultMsg").innerText=result
+        }
+    </script>
+</body>
+
+</html>
