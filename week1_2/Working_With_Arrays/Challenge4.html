@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        const dogs=[
+            {weight: 22,curFood: 250,owners: ['Alice','Bob']},
+            {weight: 8,curFood: 200,owners: ['Matilda']},
+            {weight: 13,curFood: 275,owners: ['Sarah','John']},
+            {weight: 32,curFood: 340,owners: ['Michael']},
+        ];
+
+        // Ăn nhiều: khẩu phần hiện tại > khuyến nghị
+        // Ăn ít: khẩu phần hiện tại < khuyến nghị
+        // Ăn ok: khẩu phần hiện tại > (khuyến nghị * 0,90) && khẩu phần hiện tại < (khuyến nghị * 1,10).
+        function getEatingStatus(dog){
+            let status = '';
+            if (dog.curFood > (dog.recommendedFood * 0.90) && dog.curFood < (dog.recommendedFood * 1.10)) {
+                status='ok';
+            } else if (dog.curFood > dog.recommendedFood){
+                status='too much';
+            }else if(dog.curFood < dog.recommendedFood){
+                status='too little';
+            }
+            return status;
+        }
+        // 1st part: Tính lượng thức ăn khuyến nghị cho mỗi con chó
+        dogs.forEach(dog=>{
+            // const recommendedFood= Math.trunc(dog.weight **0.75 *28); // Lấy phần nguyên
+            const recommendedFood = dog.weight ** 0.75 * 28;
+
+            dog.recommendedFood=recommendedFood;
+        });
+
+        // 2nd part: Tìm chó của Sarah
+        const dogsSarah= dogs.filter(dog=> dog.owners.includes('Sarah'));
+        console.log(dogsSarah);
+        dogsSarah.forEach(dogSarah=>{
+            console.log(`Sarah's dog is eating ${getEatingStatus(dogSarah)}`);
+        });
+
+        // 3rd part: Tạo mảng các chủ nuôi có chó ăn nhiều và ăn ít
+        const dogsEatTooMuch = dogs.filter(dog=> getEatingStatus(dog) === 'too much');
+        const dogsEatTooLittle = dogs.filter(dog=> getEatingStatus(dog) === 'too little');
+        const ownersEatTooMuch = dogsEatTooMuch.flatMap(dog=> dog.owners);
+        const ownersEatTooLittle = dogsEatTooLittle.flatMap(dog=> dog.owners);
+
+        // 4th part: In ra chó ăn nhiều/ít
+        console.log(ownersEatTooMuch.join(' and ') + "'s dogs eat too much!");
+        console.log(ownersEatTooLittle.join(' and ') + "'s dogs eat too little!");
+
+        // 5th part: Kiểm tra chó ăn = khuyến nghị
+        console.log("Kiểm tra chó ăn = khuyến nghị", dogs.some(dog=> dog.curFood === dog.recommendedFood));
+        
+        // 6th part: Tìm chó ăn ok
+        console.log("Kiểm tra có chó ăn ok", dogs.some(dog=> getEatingStatus(dog) === 'ok'));
+        
+        // 7th part
+        const dogsOk = dogs.filter(dog=> getEatingStatus(dog) === 'ok');
+
+        // 8th part: Sắp xếp chó theo recommendedFood
+        const sortDogsByRecommendedFood = [...dogs].sort((a,b)=> a.recommendedFood - b.recommendedFood);
+        console.log("Original array:", dogs);
+        console.log("Sorted array:", sortDogsByRecommendedFood);
+
+    </script>
+</body>
+
+</html>
