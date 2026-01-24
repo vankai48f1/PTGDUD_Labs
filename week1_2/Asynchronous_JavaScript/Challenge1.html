@@ -35,19 +35,36 @@
     
     <script>
         function whereAmI(lat, lbg) {
-            fetch(`https://geocode.xyz/${lat},${lbg}?geoit=JSON`)
+            fetch(`https://geocode.xyz/${lat},${lbg}?json=1`)
             .then(response => {
                 // API trả về đối tượng response, cần gọi phương thức json() để lấy dữ liệu thực tế
                 return response.json(); // --> trả về một Promise
             })
             .then(data => { // .then() sẽ chờ .then() trước đó hoàn thành và nhận kết quả trả về
                 console.log(data);
+                var countryname = data.country;
+                
                 var location  = `You are in ${data.city}, ${data.country}`;
                 console.log(location);
-                document.getElementById('location').innerHTML = location;
+                
             })
+            
             .catch(err => {
                 console.error(`Occurred error: ${err}`);
+            });
+        }
+
+        function getCountry(countryname) {
+            fetch(`https://geocode.xyz/${countryname}?json=1`)
+            .then(response => {
+                // API trả về đối tượng response, cần gọi phương thức json() để lấy dữ liệu thực tế
+                return response.json(); // --> trả về một Promise
+            })
+            .then(data => {
+                console.log("Request country by region", data);
+            })
+            .catch(err => {
+                console.log("Occurred error request country by region: ", err);
             });
         }
         // whereAmI(52.508, 13.381);

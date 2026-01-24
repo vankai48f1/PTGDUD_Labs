@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Constructor function
+        function Car(make, speed) {
+            // make and speed are private
+            let makeProperty = make;
+            let speedProperty = speed;
+
+            return {
+                get make() {
+                    return makeProperty;
+                },
+                get speed() {
+                    return speedProperty;
+                },
+                set make(newMake) {
+                    makeProperty = newMake;
+                },
+                set speed(newSpeed) {
+                    speedProperty = newSpeed;
+                },
+                accelerate: function() {
+                    speedProperty += 10; // closure
+                    console.log(`Car speed: ${speedProperty} km/h`);
+                },
+                brake: function() {
+                    speedProperty -= 5;
+                    console.log(`Car speed: ${speedProperty} km/h`);
+                }
+            }
+        }
+
+        // Constructor function
+        function EV(make, speed, charged) {
+            const car = Car.call(this, make, speed);
+            let chargedProperty = charged;
+
+            return {...car, // inheritance from Car
+                get charge() {
+                    return chargedProperty;
+                },
+                set charge(chargeTo) {
+                    chargedProperty = chargeTo;
+                },
+                chargeBattery: function(chargeTo) {
+                    chargedProperty = chargeTo;
+                },
+                accelerate: function() { // override to change speedProperty because of closure
+                    this.speed += 20;
+                    console.log(this);
+                    chargedProperty -= 1;
+                    console.log(`${this.make} going at ${this.speed} km/h, with a charge of ${chargedProperty}%`);
+                }
+            }
+        }
+
+        const car1 = new EV('Tesla', 120, 23);
+        console.log(car1);
+        car1.accelerate();
+        car1.brake();
+
+        
+        car1.speed = 5000;
+        car1.accelerate();
+    </script>
+</body>
+</html>
